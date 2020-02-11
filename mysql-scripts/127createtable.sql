@@ -1,0 +1,1 @@
+SELECT * FROM ecs.versionTable;
