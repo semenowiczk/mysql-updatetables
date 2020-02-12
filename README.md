@@ -93,9 +93,9 @@ docker run -v $(pwd)/mysql-scripts:/mysql-scripts kskrisss/mysql_updatetables -f
 docker run -ti mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs -e "select version from versionTable;"
 ```
 * set version value to '0' wit docker
-  ```bash
+```bash
 docker run -ti mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs -e 'update versionTable SET version='0';'
-  ```
+```
 
 ### OTHER VERSIONS ###
 
