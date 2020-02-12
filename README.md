@@ -64,15 +64,38 @@ The following use case might be a real-life example from one of our customers, p
   ```bash
   ./src/mysql_updatetables.py mysql-scripts root localhost ecs test
   ```
+* check what is the version of the versionTable
+  ```bash
+  mysql -h 127.0.0.1 -u root --password=test ecs -e "select version from versionTable;"
+  ```
+* set version value to '0'
+  ```bash
+  mysql -h 127.0.0.1 -u root --password=test ecs -e 'update versionTable SET version='0';'
+  ```
 
 ### HOW TO RUN WITH DOCKER ###
 Docker container was build from version 3 of the script
+
+* Run mysql server with docker
 ```bash
 docker run --name ecs-mysql -e MYSQL_DATABASE=ecs -e MYSQL_ROOT_PASSWORD=test -p 3306:3306 mysql:5.7
-docker run -i mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs < initdb.sql
-docker run -v $(pwd)/mysql-scripts:/mysql-scripts kskrisss/mysql_updatetables -f /mysql-scripts -u root --host 172.17.0.1 -p test -d ecs
-docker run -ti mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs
 ```
+* Make sure versionTable exists in ecs database in docker container
+```bash
+docker run -i mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs < initdb.sql
+```
+* run the script with docker
+```bash
+docker run -v $(pwd)/mysql-scripts:/mysql-scripts kskrisss/mysql_updatetables -f /mysql-scripts -u root --host 172.17.0.1 -p test -d ecs
+```
+* check what is the version of the versionTable
+```bash
+docker run -ti mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs -e "select version from versionTable;"
+```
+* set version value to '0' wit docker
+  ```bash
+docker run -ti mysql:5.7 mysql -h 172.17.0.1 -u root --password=test ecs -e 'update versionTable SET version='0';'
+  ```
 
 ### OTHER VERSIONS ###
 
